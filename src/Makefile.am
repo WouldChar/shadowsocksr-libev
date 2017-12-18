@@ -21,7 +21,7 @@ SS_COMMON_LIBS += $(top_builddir)/libev/libev.la \
                   $(top_builddir)/libsodium/src/libsodium/libsodium.la
 endif
 
-bin_PROGRAMS = ss-local
+bin_PROGRAMS = ss-local ss-check
 #bin_PROGRAMS += ss-tunnel
 if !BUILD_WINCOMPAT
 #bin_PROGRAMS += ss-server ss-manager
@@ -41,6 +41,8 @@ ss_local_SOURCES = utils.c \
                    netutils.c \
                    local.c \
                    $(sni_src)
+
+ss_check_SOURCES = check.c
 
 #ss_tunnel_SOURCES = utils.c \
 #                    jconf.c \
@@ -69,6 +71,7 @@ ss_local_SOURCES = utils.c \
 #                     manager.c
 
 ss_local_LDADD = $(SS_COMMON_LIBS)
+ss_check_LDADD = $(SS_COMMON_LIBS)
 #ss_tunnel_LDADD = $(SS_COMMON_LIBS)
 #ss_server_LDADD = $(SS_COMMON_LIBS)
 #ss_manager_LDADD = $(SS_COMMON_LIBS)
@@ -83,6 +86,7 @@ ss_local_LDADD += $(top_builddir)/libudns/libudns.la
 endif
 
 ss_local_CFLAGS = $(AM_CFLAGS) -DMODULE_LOCAL
+ss_check_CFLAGS = $(AM_CFLAGS) -DMODULE_CHECK
 #ss_tunnel_CFLAGS = $(AM_CFLAGS) -DMODULE_TUNNEL
 #ss_server_CFLAGS = $(AM_CFLAGS) -DMODULE_REMOTE
 #ss_manager_CFLAGS = $(AM_CFLAGS) -DMODULE_MANAGER
